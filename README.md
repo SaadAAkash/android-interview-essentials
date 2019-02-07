@@ -30,7 +30,7 @@
 ## Kotlin
 
 * [Main Reference Guide](https://kotlinlang.org/docs/reference/)
-
+* [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
 * Declare a variable as nullable string (var_name?):
 
   ```
