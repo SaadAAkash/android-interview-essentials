@@ -29,23 +29,88 @@
  
 ## Kotlin
 
+* [Main Reference Guide](https://kotlinlang.org/docs/reference/)
+
 * Declare a variable as nullable string (var_name?):
 
   ```
-		var a: String = "abc"
-		a = null // compilation error
-		var b: String? = "abc"
-		b = null // no error
-		print(b)
+	var a: String = "abc"
+	a = null // compilation error
+	var b: String? = "abc"
+	b = null // no error
+	print(b)
   ```
-  
-* Visibility Modifiers (public, protected, internal, private): public is used by default, means it will be visible everywhere.	If a declaration's private, it will only be visible inside the file containing the declaration.	If it's internal, it is visible everywhere in the same **module** (a module is a set of Kotlin files compiled together: IntelliJ IDEA, Gradle source set etc) and	if protected, it's not available for top-level declarations.
+ 
+* Safe call operator (?.)
+
+  ```
+	val a = "Kotlin"
+	val b: String? = null
+	println(b?.length)
+	println(a?.length)
+
+	output:
+	null
+	6 
+   ```
+* when, if
+   ```
+	return if (x) foo() else bar()
+	return when(x) {
+	    0 -> "zero"
+	    else -> "nonzero"
+	}
+    ```
+    
+     The above is preferable to:
+     ```
+	if (x)
+	    return foo()
+	else
+	    return bar()
+
+	when(x) {
+	    0 -> return "zero"
+	    else -> return "nonzero"
+	}
+     ```
+     
+* Functions
+
+  ```
+	fun double(x: Int): Int {
+	    return 2 * x
+	} 
+	//SYNTAX: 
+	fun funName( param : paramType ) : returnType
+	{
+
+	}
+   ```
+
+* Visibility Modifiers (public, protected, internal, private): public is used by default, means it will be visible everywhere.	If a declaration's private, it will only be visible inside the file containing the declaration.	If it's internal, it is visible everywhere in the same **module** (a module is a set of Kotlin files compiled together: IntelliJ IDEA, Gradle source set etc) and if protected, it's not available for top-level declarations.
 
  ```
  class EventViewModel internal constructor(
 	)
 	//internal makes class available to public, but constructor only to inside module
  ```
+
+* Always declare local variables and properties as ```val``` rather than ```var``` if they are not modified (not variable) after initialization
+* Prefer using immutable (whose state cannot be modified after it is created) data to mutable.
+* Out Initialization code can be placed in initializer blocks, which are prefixed with the ```init``` keyword:
+
+  ```
+  class InitOrderDemo(name: String) {
+	    val firstProperty = "First property: $name".also(::println)  //inits a val & also, prints the name
+	    
+	    init {
+	        println("First initializer block that prints ${name}")
+	        println("Second initializer block that prints ${name.length}")
+	    }
+	}
+  ```
+  
 
 ## Android + Kotlin:
 
