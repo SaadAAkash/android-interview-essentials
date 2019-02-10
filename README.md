@@ -117,6 +117,26 @@
 * [Swipe Left/Right](https://stackoverflow.com/questions/49754979/capture-events-by-sliding-left-or-right-using-kotlin)
 * [Custom Stroke Border EditText/TextViews Like Gmail](https://stackoverflow.com/questions/50619360/custom-edit-text-with-borders)
 
+* Activity
+	```
+	class SplashActivity : AppCompatActivity() {
+
+		override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+
+	    }
+	}
+	```
+* Intent
+
+	```
+	val intent = Intent(this, MainActivity::class.java)
+	startActivity(intent)
+	finish()
+	```
+
+* SharedPref
+
 ## Extras (Kotlin)
 
 * @Volatile before a field means that writes to this field are immediately made visible to other threads.
