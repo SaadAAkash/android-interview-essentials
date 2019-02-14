@@ -75,6 +75,19 @@
    val a: String? = null
    print(a?.length) // >>> null is printed in the console
    ```
+* Elvis Operator: The Smarter Type-Safe If
+
+   ```
+   val list = mutableList ?: mutableListOf() 
+   ```
+	is a shorter form of
+   ```
+   val list = if (mutableList != null) mutableList else mutableListOf()
+   ```
+   
+   The name,howver, comes from the famous American singer Elvis Presley. His hairstyle resembles a Question Mark [Ref](https://stackoverflow.com/questions/48253107/what-does-do-in-kotlin/48304523#48304523)
+   
+   ![alt text](https://i.stack.imgur.com/bVG64.png "Elvis Operator")
 
 * when, if
    ```
