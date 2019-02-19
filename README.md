@@ -1,12 +1,5 @@
 # Kotlin-Android
 
-## Java/OOP in General
-
-* How does Thread communicate? - Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
-* What's the access modifier of a method that no child class can extend/access/override: final
-* Interface VS Abstract: Interface can have only abstract methods. Abstract class can have both abstract and non-abstract methods.  Variables declared in a Java interface are by default final. Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
-
-
 ## Android
 
 * Context is the Interface to global information about an application environment.
@@ -75,6 +68,19 @@
    val a: String? = null
    print(a?.length) // >>> null is printed in the console
    ```
+   
+* Ternary Operator: **Unlike Java, there is no ternary operator in kotlin. Use if-else instead**
+
+* Bitwise Operator:
+
+   ```
+   val andResult  = a and b
+   val orResult   = a or b
+   val xorResult  = a xor b
+   val rightShift = a shr 2
+   val leftShift  = a shl 2
+   ```
+
 * Elvis Operator: The Smarter Type-Safe If
 
    ```
@@ -194,4 +200,11 @@
           }
   }
  ```
+ 
+## Extras-Random (Java/OOP in General)
+
+* How does Thread communicate? - Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
+* What's the access modifier of a method that no child class can extend/access/override: final
+* Interface VS Abstract: Interface can have only abstract methods. Abstract class can have both abstract and non-abstract methods.  Variables declared in a Java interface are by default final. Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
+
   
