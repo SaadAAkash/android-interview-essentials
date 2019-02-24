@@ -19,6 +19,12 @@
 * LiveData, an observer class, detects & changes the data in the UI if there's any change. LiveData is a data wrapper class, which is observable within a Lifecycle of Activity, Fragment, meaning that the observers are going to be notified only when the Activity or Fragment it’s active.
 * When data is ready on the VM side, it’s time to wrap it in LiveData object using MutableLiveData
 * Unlike the Presenter, VM is automatically retained on configuration changes with the help of ViewModelProviders, and finished only when Activity finishes or Fragment gets detached without saving state.
+
+## Implementing MVVM
+
+* If A is a LiveData instance and B is observing it, anytime A’s data changes, B is notified about this change and gets the latest value of A’s data.
+* **Lifecycle awareness** : This means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE
+* There is no reference to the View from a ViewModel so the communication between them must happen via a subscription. Hence, ViewModels expose events like openTaskEvent and views subscribe to them. 
  
 ## Kotlin
 
