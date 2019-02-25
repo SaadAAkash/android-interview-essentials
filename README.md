@@ -25,6 +25,14 @@
 * If A is a LiveData instance and B is observing it, anytime A’s data changes, B is notified about this change and gets the latest value of A’s data.
 * **Lifecycle awareness** : This means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE
 * There is no reference to the View from a ViewModel so the communication between them must happen via a subscription. Hence, ViewModels expose events like openTaskEvent and views subscribe to them. 
+
+* Process:
+
+1.  `git checkout master` from any folder in your local `LYST`
+    repository
+1.  `git pull origin master` to ensure you have the latest main code
+1.  `git checkout -b the-name-of-my-branch` (replacing `the-name-of-my-branch`
+    with a suitable name) to create a branch
  
 ## Kotlin
 
