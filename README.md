@@ -28,11 +28,19 @@
 
 * Process:
 
-1.  `git checkout master` from any folder in your local `LYST`
-    repository
-1.  `git pull origin master` to ensure you have the latest main code
-1.  `git checkout -b the-name-of-my-branch` (replacing `the-name-of-my-branch`
-    with a suitable name) to create a branch
+1.  Import androidx lifecycle components & initialize the viewmodel in an Activity:
+	``` 
+	import androidx.lifecycle.ViewModelProvider
+	////
+	lateinit var paymentViewModel : PaymentViewModel
+	```
+1.  Put viewmodel provider (which will get the viewmodel class) & observer (which will observe a MutableLiveData of viewmodel) inside the onCreate() of
+	```
+	paymentViewModel = ViewModelProviders.of(this, viewModelFactory).get(PaymentViewModel::class.java)
+        paymentViewModel.paymentUrl.observe(this, Observer { paymentUrl ->
+            loadBkashPaymentDialog(paymentUrl)
+        })
+	```
  
 ## Kotlin
 
