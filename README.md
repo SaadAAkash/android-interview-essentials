@@ -177,6 +177,7 @@
   
 
 ## Android + Kotlin:
+
 * Let’s say that we have nullable nameTextView. The following code will give us NPE if it is null:
 	```
 	nameTextView.setEnabled(true)
@@ -190,6 +191,17 @@
 	nameTextView!!.setEnabled(true)
 	```
   it will give us NPE if nameTextView is a null. It's just for adventurers!!!!
+  
+* Use Let:
+	```
+	sheetBehavior = BottomSheetBehavior.from(layoutMapBottomSheet!!)
+	```
+	Use let & use the it rather than the using !! & waiting to get an NPE
+	```
+	layoutMapBottomSheet?.let {
+            sheetBehavior = BottomSheetBehavior.from(it)  //here, "it" is "layoutMapBottomSheet"
+        }
+	```
 
 * Activity
 	```
