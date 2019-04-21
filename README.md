@@ -177,9 +177,19 @@
   
 
 ## Android + Kotlin:
-
-* [Swipe Left/Right](https://stackoverflow.com/questions/49754979/capture-events-by-sliding-left-or-right-using-kotlin)
-* [Custom Stroke Border EditText/TextViews Like Gmail](https://stackoverflow.com/questions/50619360/custom-edit-text-with-borders)
+* Let’s say that we have nullable nameTextView. The following code will give us NPE if it is null:
+	```
+	nameTextView.setEnabled(true)
+	```
+  But Kotlin, actually, is good and it will not allow us to even do such a thing. It will force us to use ? or !! operator. If we use ? operator:
+	```
+	nameTextView?.setEnabled(true)
+	```
+  the line will be proceeded only if nameTextView is not a null. In another case, if we use !! operator:
+	```
+	nameTextView!!.setEnabled(true)
+	```
+  it will give us NPE if nameTextView is a null. It's just for adventurers!!!!
 
 * Activity
 	```
@@ -200,6 +210,13 @@
 	```
 
 * SharedPref
+
+[Check out my gist on custom sharedpref in both java & kotlin](https://gist.github.com/SaadAAkash/30e2b317f1cbd65ea4f6f99ca013617c)
+
+### UI Code Snippets:
+* [Swipe Left/Right](https://stackoverflow.com/questions/49754979/capture-events-by-sliding-left-or-right-using-kotlin)
+* [Custom Stroke Border EditText/TextViews Like Gmail](https://stackoverflow.com/questions/50619360/custom-edit-text-with-borders)
+* [Material Edittext Login like Gmail](https://github.com/sunnat629/MaterialEditText)
 
 ## Extras (Kotlin)
 
@@ -228,5 +245,4 @@
 * How does Thread communicate? - Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
 * What's the access modifier of a method that no child class can extend/access/override: final
 * Interface VS Abstract: Interface can have only abstract methods. Abstract class can have both abstract and non-abstract methods.  Variables declared in a Java interface are by default final. Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
-
-  
+* There's no need for access control modifiers: private & protected in OOP. How can we access any varialble, bypassing these access control modifiers in java? - Reflection
