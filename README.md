@@ -71,12 +71,12 @@
 * !! vs ? 
 
    ```
-   	+------------+--------------------+---------------------+----------------------+
-	| a: String? |           a.length |           a?.length |           a!!.length |
-	+------------+--------------------+---------------------+----------------------+
-	|      "cat" | Compile time error |                   3 |                    3 |
-	|       null | Compile time error |                null | NullPointerException |
-	+------------+--------------------+---------------------+----------------------+
+        +------------+--------------------+---------------------+----------------------+
+        | a: String? |           a.length |           a?.length |           a!!.length |
+        +------------+--------------------+---------------------+----------------------+
+        |      "cat" | Compile time error |                   3 |                    3 |
+        |       null | Compile time error |                null | NullPointerException |
+        +------------+--------------------+---------------------+----------------------+
    ```
    
    !! is an option for NPE-lovers. ```a!!.length``` will return a non-null value of a.length or throw a NullPointerException if a is null. And ```a?.length``` returns a.length if a is not null, and null otherwise:
