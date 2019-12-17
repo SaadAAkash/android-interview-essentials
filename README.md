@@ -175,6 +175,39 @@
 	}
   ```
   
+* Calling High Order Functions
+  ``` 
+	fun main() {
+	//both of the ways are correct!
+	    test( { println(it) } ) 
+	    test(::println)
+	}
+
+	fun test(block: (String) -> Unit ) {
+	    block("okay")
+	}
+  ```
+* A sample input-output problem solving in kotlin example
+
+  ```
+  fun solve (clawPos: Int, boxes: Array<Int>, boxInClaw: Boolean): String {
+  	return "okay"
+  }
+  fun main(args : Array<String>) {
+    val input = Scanner(System.`in`)
+    while (true) {
+        val clawPos = input.nextInt()  //4
+        val boxInClaw = input.nextInt() != 0 //0
+        val stacks = input.nextInt()  //5
+        val boxes = Array(stacks) { input.nextInt() } //1 4 1 2 3
+        val outStream = System.out
+        System.setOut(System.err)
+        val action: String = solve(clawPos, boxes, boxInClaw)
+        System.setOut(outStream)
+        println(action)
+    }
+  }
+  ```
 
 ## Android + Kotlin:
 
