@@ -1,3 +1,18 @@
+<h2 style="margin-bottom: 0;" align="center">Native Android Interview Basics</h2>
+<h4 style="margin-top: 0;" align="center">Language Basics, Architecture In-depth, Android Vitals, Performance, Memory Optimizations and More!</h4>
+<p align="center">
+	<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
+	<a href="https://github.com/SaadAAkash/Native-Android-Interview-Basics"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"/></a>
+	<a href="https://github.com/SaadAAkash/Kotlin-Android-Interview-Basics/commits/master"><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"/></a>
+	<a href="https://github.com/SaadAAkash/Kotlin-Android-Interview-Basics/tree/master#license"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"/></a>
+	<a href="https://saad.ninja"><img src="https://img.shields.io/badge/Made%20with-Love-1f425f.svg"/></a>
+	<br> <br>
+	
+<a href="https://undraw.co/" target="_blank">
+         <img src="https://github.com/SaadAAkash/Kotlin-Android-Interview-Basics/blob/master/resources/banner.jpg" alt="Native Android Interview Basics" style="width:200;height:200">
+</a>
+
+
 # Kotlin-Android
 
 ## Android
