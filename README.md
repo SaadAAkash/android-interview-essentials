@@ -1,5 +1,5 @@
-<h2 style="margin-bottom: 0;" align="center">Native Android Interview Basics</h2>
-<h4 style="margin-top: 0;" align="center">Language Basics, Architecture In-depth, Android Vitals, Performance, Memory Optimizations and More!</h4>
+<h2 style="margin-bottom: 0;" align="center">Android Interview Essentials</h2>
+<h4 style="margin-top: 0;" align="center">Language Basics, Architecture In-depth, Android Vitals, Performance, Memory Optimizations and More</h4>
 <p align="center">
 	<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
 	<a href="https://github.com/SaadAAkash/Native-Android-Interview-Basics"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"/></a>
@@ -13,18 +13,14 @@
 </a>
 
 
-# Kotlin-Android
+## Contents
 
-## Android
+| 1 | 2 | 3 | 4 | 5 
+| -------- | --------- | --------- | --------- | --------- |
+| [Common App Architectures](README.md#common-app-architectures) | [Design Pattern Essentials](#design-pattern-essentials) | [Android Basics](#android-basics) | [Android Basics: Kotlin](#android-basics-kotlin) | [Android Advanced](#android-advanced) |
 
-* Context is the Interface to global information about an application environment.
-* An Activity is an application component that provides a screen, with which users can interact in order to do something.
-* A Fragment represents a behavior or a portion of user interface in an Activity
-* A fragment has to live inside the activity. Fragments do not need to be declared in the manifest.
-* Fragments are used for its re-usability. For multi-pane layouts you have to use fragment that you can't achieve with activity. Use fragment only when you’re working with UI components or behavior that you’re going to use across multiple activities.
-* A service is a component that runs in the background to perform long-running operations without needing to interact with the user and it works even if application is destroyed
-* Explicit intents are used to start components in your own application (startnewactivty, start another class), 
-* And Implicit intents are most commonly used to communicate with components from other third party applications (call, sms, mail)
+
+# Common App Architectures
 
 ## MVVM
 
@@ -35,7 +31,7 @@
 * When data is ready on the VM side, it’s time to wrap it in LiveData object using MutableLiveData
 * Unlike the Presenter, VM is automatically retained on configuration changes with the help of ViewModelProviders, and finished only when Activity finishes or Fragment gets detached without saving state.
 
-## Implementing MVVM
+#### Implementing MVVM
 
 * If A is a LiveData instance and B is observing it, anytime A’s data changes, B is notified about this change and gets the latest value of A’s data.
 * **Lifecycle awareness** : This means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE
@@ -56,8 +52,22 @@
             loadBkashPaymentDialog(paymentUrl)
         })
 	```
- 
-## Kotlin
+
+
+# Design Pattern Essentials
+
+# Android Basics
+
+* Context is the Interface to global information about an application environment.
+* An Activity is an application component that provides a screen, with which users can interact in order to do something.
+* A Fragment represents a behavior or a portion of user interface in an Activity
+* A fragment has to live inside the activity. Fragments do not need to be declared in the manifest.
+* Fragments are used for its re-usability. For multi-pane layouts you have to use fragment that you can't achieve with activity. Use fragment only when you’re working with UI components or behavior that you’re going to use across multiple activities.
+* A service is a component that runs in the background to perform long-running operations without needing to interact with the user and it works even if application is destroyed
+* Explicit intents are used to start components in your own application (startnewactivty, start another class), 
+* And Implicit intents are most commonly used to communicate with components from other third party applications (call, sms, mail)
+
+# Android Basics: Kotlin
 
 * [Main Reference Guide](https://kotlinlang.org/docs/reference/)
 * [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
@@ -223,8 +233,25 @@
     }
   }
   ```
+* @Volatile before a field means that writes to this field are immediately made visible to other threads.
+* Suppress Warnings: In Kotlin, there's no way to check the generic parameters at runtime in general case (like just checking the items of a ```List<T>``` or here in this ViewModelFactory, ```modelClass: Class<T>``` which is only a special case), so casting a generic type to another with different generic parameters will raise a warning, which needs to be suppressed
 
-## Android + Kotlin:
+ ```
+	 @Suppress("UNCHECKED_CAST")
+	 override fun <T : ViewModel?> create(modelClass: Class<T>) = EventViewModel(eventRepository, lifecycleOwner) as T
+ ```
+* Companion Objects: if you declare a companion object inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier.
+
+ ```
+  companion object {
+      @Volatile private var instance: EventRepository? = null
+
+      fun getInstance(eventDao:EventDao) =
+          instance ?: synchronized(this) {
+              instance ?: EventRepository(eventDao).also { instance = it }
+          }
+  }
+ ```
 
 * Let’s say that we have nullable nameTextView. The following code will give us NPE if it is null:
 	```
@@ -273,34 +300,8 @@
 
 [Check out my gist on custom sharedpref in both java & kotlin](https://gist.github.com/SaadAAkash/30e2b317f1cbd65ea4f6f99ca013617c)
 
-### UI Code Snippets:
-* [Swipe Left/Right](https://stackoverflow.com/questions/49754979/capture-events-by-sliding-left-or-right-using-kotlin)
-* [Custom Stroke Border EditText/TextViews Like Gmail](https://stackoverflow.com/questions/50619360/custom-edit-text-with-borders)
-* [Material Edittext Login like Gmail](https://github.com/sunnat629/MaterialEditText)
 
-## Extras (Kotlin)
-
-* @Volatile before a field means that writes to this field are immediately made visible to other threads.
-* Suppress Warnings: In Kotlin, there's no way to check the generic parameters at runtime in general case (like just checking the items of a ```List<T>``` or here in this ViewModelFactory, ```modelClass: Class<T>``` which is only a special case), so casting a generic type to another with different generic parameters will raise a warning, which needs to be suppressed
-
- ```
-	 @Suppress("UNCHECKED_CAST")
-	 override fun <T : ViewModel?> create(modelClass: Class<T>) = EventViewModel(eventRepository, lifecycleOwner) as T
- ```
-* Companion Objects: if you declare a companion object inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier.
-
- ```
-  companion object {
-      @Volatile private var instance: EventRepository? = null
-
-      fun getInstance(eventDao:EventDao) =
-          instance ?: synchronized(this) {
-              instance ?: EventRepository(eventDao).also { instance = it }
-          }
-  }
- ```
- 
-## Extras-Random (Java/OOP in General)
+# Android Advanced
 
 * How does Thread communicate? - Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
 * What's the access modifier of a method that no child class can extend/access/override: final
