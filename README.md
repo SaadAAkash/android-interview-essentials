@@ -15,9 +15,9 @@
 
 ## Contents
 
-| 1 | 2 | 3 | 4 | 5 
-| -------- | --------- | --------- | --------- | --------- |
-| [Common App Architectures](README.md#common-app-architectures) | [Design Pattern Essentials](#design-pattern-essentials) | [Android Basics](#android-basics) | [Android Basics: Kotlin](#android-basics-kotlin) | [Android Advanced](#android-advanced) |
+| 1 | 2 | 3 | 4 | 5 | 6 |
+| -------- | --------- | --------- | --------- | --------- | --------- |
+| [Common App Architectures](README.md#common-app-architectures) | [Design Pattern Essentials](#design-pattern-essentials) | [Android Basics](#android-basics) | [Android Basics: Kotlin](#android-basics-kotlin) | [Android Advanced](#android-advanced) | [Interview Learning Guides](#interview-learning-guides) |
 
 
 # Common App Architectures
@@ -71,6 +71,7 @@
 
 * [Main Reference Guide](https://kotlinlang.org/docs/reference/)
 * [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
+* [Kotlin Tutorial Series Playlist by Navir Reddy](https://www.youtube.com/playlist?list=PLsyeobzWxl7rooJFZhc3qPLwVROovGCfh)
 * Declare a variable as nullable string (var_name?):
 
   ```
@@ -307,3 +308,10 @@
 * What's the access modifier of a method that no child class can extend/access/override: final
 * Interface VS Abstract: Interface can have only abstract methods. Abstract class can have both abstract and non-abstract methods.  Variables declared in a Java interface are by default final. Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
 * There's no need for access control modifiers: private & protected in OOP. How can we access any varialble, bypassing these access control modifiers in java? - Reflection
+
+# Interview Learning Guides
+
+* [Read this before you start solving problems on Leetcode (Prep Work)](https://www.alimirio.com/posts/read-this-before-you-start-solving-problems-on-leetcode-prep-work)
+* [Best Practice Questions on Leetcode](https://yangshun.github.io/tech-interview-handbook/best-practice-questions)
+* [LeetCode Solution Explainer Videos by Nick White](https://www.youtube.com/playlist?list=PLU_sdQYzUj2keVENTP0a5rdykRSgg9Wp-)
+* [LeetCode Java solutions by Fisher Coder](https://github.com/fishercoder1534/Leetcode)
