@@ -399,6 +399,85 @@ Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
 
 # Android Intermediate
 
+### General Concepts
+
+<details>
+<summary><strong>We know that when one activity starts another, they both experience lifecycle transitions. Briefly explain the order of operations that occur when Activity A starts Activity B.</strong></summary>
+* Activity A's onPause() method executes.
+* Activity B's onCreate(), onStart(), and onResume() methods execute in sequence. (Activity B now has user focus.)
+* Then, if Activity A is no longer visible on screen, its onStop() method executes.
+</details>
+
+<details>
+<summary><strong>What type of stack does Android use for managing tasks?</strong></summary>
+Android manages tasks and the back stack, by placing all activities started in succession in the same task and in a "last in, first out" stack
+</details>
+
+<details>
+<summary><strong>What are the 3 principal intent flags for managing tasks in Activity Back Stack?</strong></summary>
+
+* FLAG_ACTIVITY_NEW_TASK
+* FLAG_ACTIVITY_CLEAR_TOP
+* FLAG_ACTIVITY_SINGLE_TOP
+	
+[More explanation](https://developer.android.com/guide/components/activities/tasks-and-back-stack#IntentFlagsForTasks)
+</details>
+
+<details>
+<summary><strong>On Android 10 or higher, how can an app start activities?</strong></summary>
+By displaying notifications. But there are some exceptions and apps running on Android 10 or higher can start activities only when [one or more of these conditions](https://developer.android.com/guide/components/activities/background-starts#exceptions) are met.
+
+</details>
+
+<details>
+<summary><strong>How to retrieve NavController in Java and Kotlin?</strong></summary>
+You can retrieve a NavController by using one of the following methods:
+
+* Kotlin:
+```
+Fragment.findNavController()
+View.findNavController()
+Activity.findNavController(viewId: Int)
+```
+* Java:
+```
+NavHostFragment.findNavController(Fragment)
+Navigation.findNavController(Activity, @IdRes int viewId)
+Navigation.findNavController(View)
+```
+</details>
+
+<details>
+<summary><strong>What are the major components of Room?</strong></summary>
+3 major components in Room:
+* Database
+* Entity
+* DAO
+</details>
+
+<details>
+<summary><strong>What's Scoped Storage in Android 10?</strong></summary>
+Apps that use scoped storage have access only to their app directory on external storage plus any media the app created.
+More details on this [article](https://www.raywenderlich.com/9577211-scoped-storage-in-android-10-getting-started).
+</details>
+
+<details>
+<summary><strong>What's the improved data storage solution aimed at replacing SharedPreferences?</strong></summary>
+Jetpack  DataStore
+</details>
+
+<details>
+<summary><strong>When to use MutableLiveData & when to use LiveData? Explain a scenario.</strong></summary>
+when you don't want your data to be modified use LiveData If you want to modify your data later use MutableLiveData. 
+A scenario of fetching data from an API needs a MutableLiveData where there are changes in data. This fetched data then can be stored in a LiveData if there's no requirement to change it afterwards & just use cases of using it for the view purposes.
+</details>
+
+<details>
+<summary><strong>When do we need a Parcelables and when a Bundle? Explain a scenario.</strong></summary>
+when you don't want your data to be modified use LiveData If you want to modify your data later use MutableLiveData. 
+A scenario of fetching data from an API needs a MutableLiveData where there are changes in data. This fetched data then can be stored in a LiveData if there's no requirement to change it afterwards & just use cases of using it for the view purposes.
+</details>
+
 ### Common App Architectures: MVVM
 
 * ViewModel: While you're rotating the screen orientation or perform any changes in configruation, data may be lost (i.e. while filling up a google form activity & changing the rotation on device)
