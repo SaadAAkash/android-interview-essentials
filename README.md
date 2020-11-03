@@ -354,6 +354,41 @@ onAttached()
 
 ### Android Specifics: Java
 
+<details>
+<summary><strong>What's the access modifier of a method that no child class can extend/access/override?</strong></summary>
+final
+</details>
+
+<details>
+<summary><strong>How to make a member variable not to be serialized inside a Serialized object?</strong></summary>
+Using Java keyword transient.
+</details>
+
+<details>
+<summary><strong>What's the Parent class of Error & Exception?</strong></summary>
+Throwable
+</details>
+
+<details>
+<summary><strong>Are String objects mutable? If so, why is that? Explain shortly.</strong></summary>
+No. String objects are immutable. In the String constant pool, a String object is likely to have one or many references. If several references point to same String without even knowing it, it would be bad if one of the references modified that String value. That's why String objects are immutable.
+</details>
+
+<details>
+<summary><strong>When to use StringBuffer and when to StringBuilder?</strong></summary>
+StringBuffer and StringBuilder are similar, but StringBuilder is faster and preferred over StringBuffer for single threaded program. If thread safety is needed, then StringBuffer is used.
+</details>
+
+<details>
+<summary><strong>How many types of polymorphism is there in Java?</strong></summary>
+There are two types of polymorphism in Java: compile-time polymorphism and runtime polymorphism. We can perform polymorphism in java by method overloading and method overriding. If you overload a static method in Java, it is the example of compile time polymorphism. 
+</details>
+
+<details>
+<summary><strong>How does Thread communicate?</strong></summary>
+Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
+</details>
+
 # Android Specifics: Cross-Platform
 
 ### Android Specifics: Dart
