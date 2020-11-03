@@ -253,11 +253,11 @@ onAttached()
 
 * Visibility Modifiers (public, protected, internal, private): public is used by default, means it will be visible everywhere.	If a declaration's private, it will only be visible inside the file containing the declaration.	If it's internal, it is visible everywhere in the same **module** (a module is a set of Kotlin files compiled together: IntelliJ IDEA, Gradle source set etc) and if protected, it's not available for top-level declarations.
 
- ```
- class EventViewModel internal constructor(
+  ```
+	 class EventViewModel internal constructor(
 	)
 	//internal makes class available to public, but constructor only to inside module
- ```
+  ```
 
 * Always declare local variables and properties as ```val``` rather than ```var``` if they are not modified (not variable) after initialization
 * Prefer using immutable (whose state cannot be modified after it is created) data to mutable.
@@ -310,13 +310,13 @@ onAttached()
 * @Volatile before a field means that writes to this field are immediately made visible to other threads.
 * Suppress Warnings: In Kotlin, there's no way to check the generic parameters at runtime in general case (like just checking the items of a ```List<T>``` or here in this ViewModelFactory, ```modelClass: Class<T>``` which is only a special case), so casting a generic type to another with different generic parameters will raise a warning, which needs to be suppressed
 
- ```
-	 @Suppress("UNCHECKED_CAST")
+  ```
+  @Suppress("UNCHECKED_CAST")
 	 override fun <T : ViewModel?> create(modelClass: Class<T>) = EventViewModel(eventRepository, lifecycleOwner) as T
- ```
+  ```
 * Companion Objects: if you declare a companion object inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier.
 
- ```
+  ```
   companion object {
       @Volatile private var instance: EventRepository? = null
 
@@ -324,8 +324,8 @@ onAttached()
           instance ?: synchronized(this) {
               instance ?: EventRepository(eventDao).also { instance = it }
           }
-  }
- ```
+   }
+   ```
 
 * Let’s say that we have nullable nameTextView. The following code will give us NPE if it is null:
 	```
@@ -505,8 +505,6 @@ A scenario of fetching data from an API needs a MutableLiveData where there are 
             loadBkashPaymentDialog(paymentUrl)
         })
 	```
-
-### Common App Architectures: MVI
 
 # Android Advanced
 
