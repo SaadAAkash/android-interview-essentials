@@ -510,7 +510,62 @@ A scenario of fetching data from an API needs a MutableLiveData where there are 
 
 # Android Advanced
 
+<details>
+<summary><strong>The last callback in the lifecycle of an activity is onDestroy(). The system calls this method on your activity as the final signal that your activity instance is being completely removed from the system memory. Usually, the system will call onPause() and onStop() before calling onDestroy(). Describe a scenario, though, where onPause() and onStop() would not be invoked.</strong></summary>
+If you detect an error during onCreate() and call finish()
+</details>
 
+<details>
+<summary><strong>When a LayoutManager asks a RecyclerView to provide a View at position X”, explian briefly the internal processes that take place.</strong></summary>
+* Searches changed scrap
+* Searches attached scrap
+* Searches non-removed hidden views
+* Searches the view cache
+* If Adapter has stable ids, searches attached scrap and view cache again for given id.
+* Searches the ViewCacheExtension
+* Searches the RecycledViewPool
+* If it fails to find a suitable View in all of the aforementioned places, it creates one by calling adapter’s onCreateViewHolder() method. It then binds the View via onBindViewHolder() if necessary, and finally returns it
+</details>
+
+<details>
+<summary><strong>Give me a scenario when onCreateViewHolder() & onBindViewHolder() needs to get called in a RecylerView?</strong></summary>
+If a ViewHolder can not be found in Scrap, or Pool, or View Cache, RecyclerView calls its adapter's onCreateViewHolder() and then binds the created view by calling onCreateViewHolder() method.
+</details>
+
+<details>
+<summary><strong>Give me a scenario when onCreateViewHolder() & onBindViewHolder() does not get called in a RecylerView? </strong></summary>
+When a ViewHolder is in the view cache, we hope to to reuse it “as-is”, without rebinding, at the same position as the one it was at before it got into the cache.
+</details>
+
+<details>
+<summary><strong>Give me a scenario when only onBindViewHolder() gets called in a RecylerView? </strong></summary>
+If a ViewHolder was found in pool, it is bound.
+</details>
+
+<details>
+<summary><strong>Suppose you have a News App that shows an Image with a text for each news article preview. It has 2 types of views implemented with RecyclerView. One view is a grid gallery of article previews & the other is a down-scroll feed of article previews. In which view may we need to extend RecyclerView's cache capacity?</strong></summary>
+With the given scenario, it's assumable that users would not scroll up/go back to previously read articles too often. So we may need to extend the capacity of the cache in the latter as the grid needs to be updated more frequently.
+</details>
+
+<details>
+<summary><strong>What method of a RecylerView do we need to call to detect if a certain View is present/visible on the device screen? </strong></summary>
+onViewAttachedToWindow() and onViewDetachedFromWindow() callbacks of the RecyclerView's Adapter
+</details>
+
+<details>
+<summary><strong>What's the difference between the activity lifecycle in a multi-windowed environment where multiple applications are running simultaneously in separate windows?</strong></summary>
+There's no difference becaused multi-window mode does not change the activity lifecycle.
+</details>
+
+<details>
+<summary><strong>Given a scenario of multiple apps running simultaneously in a multi-windowed environment, how to detect which of those application is on top of the other in the back stack of tasks?</strong></summary>
+When apps are running simultaneously in a multi-windowed environment, supported in Android 7.0 (API level 24) and higher, the system manages tasks separately for each window; each window may have multiple tasks. Since it's managed by the System as a per-window basis, 2 applications in 2 windows are not in the same back stack of tasks in any way.
+</details>
+
+<details>
+<summary><strong>What's the highest amount of data that you can keep as a savedInstanceState?</strong></summary>
+For the specific case of savedInstanceState, the amount of data should be kept small because the system process needs to hold on to the provided data for as long as the user can ever navigate back to that activity (even if the activity's process is killed). Less than 50k of data in saved state is recommended. [Ref](https://developer.android.com/guide/components/activities/parcelables-and-bundles#sdbp)
+</details>
 # Resources & Learning Guides
 
 ### Android Resources
