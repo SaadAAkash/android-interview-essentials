@@ -111,6 +111,32 @@ When we declare an Activity in the Manifest, we can include intent filters so it
 
 </details>
 
+<details>
+<summary><strong>What are the core components of RecyclerView?</strong></summary>
+
+* RecyclerView.Adapter
+* RecyclerView.ViewHolder
+* RecyclerView.LayoutManager
+* RecyclerView.ItemAnimator
+
+</details>
+
+<details>
+<summary><strong>What are the functionalities/use cases of using Guideline & Barries in a ConstraintLayout?</strong></summary>
+
+Link to the resources with graphical explanation:
+
+* [Constrain to a guideline](https://developer.android.com/training/constraint-layout#constrain-to-a-guideline)
+* [Constrain to a barrier](https://developer.android.com/training/constraint-layout#constrain-to-a-barrier)
+
+</details>
+
+<details>
+<summary><strong>Which method is called only once in a fragment life cycle?</strong></summary>
+onAttached()
+</details>
+
+
 
 # Android Specifics: Native
 
@@ -370,13 +396,19 @@ When we declare an Activity in the Manifest, we can include intent filters so it
 
 # Android Advanced
 
-* How does Thread communicate? - Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
-* What's the access modifier of a method that no child class can extend/access/override: final
-* Interface VS Abstract: Interface can have only abstract methods. Abstract class can have both abstract and non-abstract methods.  Variables declared in a Java interface are by default final. Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
-* There's no need for access control modifiers: private & protected in OOP. How can we access any varialble, bypassing these access control modifiers in java? - Reflection
 
 # Resources & Learning Guides
 
+### Android Resources
+
+#### UI
+* [Anatomy of RecyclerView: a Search for a ViewHolder](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-404ba3453714)
+* [Anatomy of RecyclerView: a Search for a ViewHolder (continued)](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-continued-d81c631a2b91#.dcsykhoh9)
+
+#### Best Practices/Demo
+* [Sunflower: A gardening app illustrating Android development best practices with Android Jetpack.](https://github.com/android/sunflower)
+
+### LeetCode Resources
 * [Read this before you start solving problems on Leetcode (Prep Work)](https://www.alimirio.com/posts/read-this-before-you-start-solving-problems-on-leetcode-prep-work)
 * [Best Practice Questions on Leetcode](https://yangshun.github.io/tech-interview-handbook/best-practice-questions)
 * [LeetCode Solution Explainer Videos by Nick White](https://www.youtube.com/playlist?list=PLU_sdQYzUj2keVENTP0a5rdykRSgg9Wp-)
