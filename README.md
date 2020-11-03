@@ -17,57 +17,104 @@
 
 | 1 | 2 | 3 | 4 | 5 | 6 |
 | -------- | --------- | --------- | --------- | --------- | --------- |
-| [Common App Architectures](README.md#common-app-architectures) | [Design Pattern Essentials](#design-pattern-essentials) | [Android Basics](#android-basics) | [Android Basics: Kotlin](#android-basics-kotlin) | [Android Advanced](#android-advanced) | [Interview Learning Guides](#interview-learning-guides) |
-
-
-# Common App Architectures
-
-## MVVM
-
-* ViewModel: While you're rotating the screen orientation or perform any changes in configruation, data may be lost (i.e. while filling up a google form activity & changing the rotation on device)
-* ViewModel prevents memory leak, by hodling the data of UI.
-* While fetching data from some API, some data can come after the initilization of the activity & its view.
-* LiveData, an observer class, detects & changes the data in the UI if there's any change. LiveData is a data wrapper class, which is observable within a Lifecycle of Activity, Fragment, meaning that the observers are going to be notified only when the Activity or Fragment it’s active.
-* When data is ready on the VM side, it’s time to wrap it in LiveData object using MutableLiveData
-* Unlike the Presenter, VM is automatically retained on configuration changes with the help of ViewModelProviders, and finished only when Activity finishes or Fragment gets detached without saving state.
-
-#### Implementing MVVM
-
-* If A is a LiveData instance and B is observing it, anytime A’s data changes, B is notified about this change and gets the latest value of A’s data.
-* **Lifecycle awareness** : This means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE
-* There is no reference to the View from a ViewModel so the communication between them must happen via a subscription. Hence, ViewModels expose events like openTaskEvent and views subscribe to them. 
-
-* Process:
-
-1.  Import androidx lifecycle components & initialize the viewmodel in an Activity:
-	``` 
-	import androidx.lifecycle.ViewModelProvider
-	////
-	lateinit var paymentViewModel : PaymentViewModel
-	```
-1.  Put viewmodel provider (which will get the viewmodel class) & observer (which will observe a MutableLiveData of viewmodel) inside the onCreate() of
-	```
-	paymentViewModel = ViewModelProviders.of(this, viewModelFactory).get(PaymentViewModel::class.java)
-        paymentViewModel.paymentUrl.observe(this, Observer { paymentUrl ->
-            loadBkashPaymentDialog(paymentUrl)
-        })
-	```
-
-
-# Design Pattern Essentials
+| [Android Basics](README.md#android-basics) | [Android Specifics: Native](#android-specifics-native) | [Android Specifics: Cross-Platform](#android-specifics-cross-platform) | [Android Intermediate](#android-intermediate) | [Android Advanced](#android-advanced) | [Resources & Learning Guides](#interview-learning-guides) |
 
 # Android Basics
 
-* Context is the Interface to global information about an application environment.
-* An Activity is an application component that provides a screen, with which users can interact in order to do something.
-* A Fragment represents a behavior or a portion of user interface in an Activity
-* A fragment has to live inside the activity. Fragments do not need to be declared in the manifest.
-* Fragments are used for its re-usability. For multi-pane layouts you have to use fragment that you can't achieve with activity. Use fragment only when you’re working with UI components or behavior that you’re going to use across multiple activities.
-* A service is a component that runs in the background to perform long-running operations without needing to interact with the user and it works even if application is destroyed
-* Explicit intents are used to start components in your own application (startnewactivty, start another class), 
-* And Implicit intents are most commonly used to communicate with components from other third party applications (call, sms, mail)
+<details>
+<summary><strong>What are the core 4 app components? What elements/tags do we use to declare them in the Manifest file?</strong></summary>
+There are four different types of app components:
 
-# Android Basics: Kotlin
+* Activities
+* Services
+* Broadcast receivers
+* Content providers
+
+To declare all app components, we use the following elements:
+
+* `<activity>` elements for activities.
+* `<service>` elements for services.
+* `<receiver>` elements for broadcast receivers.
+* `<provider>`elements for content providers.
+</details>
+
+<details>
+<summary><strong>What's Context?</strong></summary>
+Context is the Interface to global information about an application environment
+</details>
+
+<details>
+<summary><strong>What's an Activity?</strong></summary>
+An Activity is an application component that provides a screen, with which users can interact in order to do something
+</details>
+
+<details>
+<summary><strong>What's a Fragment? What's its relationship with Activity?</strong></summary>
+A Fragment represents a behavior or a portion of user interface in an Activity. A fragment has to live inside the activity. Fragments do not need to be declared in the manifest.
+</details>
+
+<details>
+<summary><strong>What's the use of Fragment?</strong></summary>
+Fragments are used for its re-usability. For multi-pane layouts you have to use fragment that you can't achieve with activity. Use fragment only when you’re working with UI components or behavior that you’re going to use across multiple activities
+</details>
+
+<details>
+<summary><strong>What's a Service?</strong></summary>
+A service is a component that runs in the background to perform long-running operations without needing to interact with the user and it works even if application is destroyed
+</details>
+
+<details>
+<summary><strong>What's an Intent? How many types of intent are in Android? Briefly explain their respective use cases.</strong></summary>
+
+An Intent is a messaging object you can use to request an action from another app component.
+
+Use Cases: Starting an Activity or a Service, Delivering a broadcast. 
+* <b>Explicit intents</b> are used to start components in your own application. Use Case: You might start a new activity within your app in response to a user action, or start a service to download a file in the background.
+* <b>Implicit intents</b> are most commonly used to communicate with components from other third party applications.  Use Case: If you want to show the user a location on a map, you can use an implicit intent to request that another capable app show a specified location on a map.
+
+</details>
+
+<details>
+<summary><strong>What's a PendingIntent? How many types of intent are in Android? Briefly explain their respective use cases.</strong></summary>
+
+A PendingIntent object is a wrapper around an Intent object. The primary purpose of a PendingIntent is to grant permission to a foreign application to use the contained Intent as if it were executed from your app's own process.
+
+Use Cases: 
+* Notification: Android system's NotificationManager executes the Intent
+* App Widget: Home screen app executes the Intent
+* A specified future time: Android system's AlarmManager executes the Intent
+
+</details>
+
+<details>
+<summary><strong>What is the functionality of Intent filters? Point out a frequently-used scenario.</strong></summary>
+
+This element is used in the Manifest file to declare the capabilities of an app component (i.e. an Activity) 
+
+Use Case:
+When we declare an Activity in the Manifest, we can include intent filters so it can respond to intents from other applications like the following:
+
+```xml
+<manifest>
+    ...
+    <application>
+        <activity android:name="com.example.SendEmailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <data android:type="*/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
+```
+
+</details>
+
+
+# Android Specifics: Native
+
+### Android Specifics: Kotlin
 
 * [Main Reference Guide](https://kotlinlang.org/docs/reference/)
 * [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
@@ -279,28 +326,47 @@
         }
 	```
 
-* Activity
+### Android Specifics: Java
+
+# Android Specifics: Cross-Platform
+
+### Android Specifics: Dart
+
+### Android Specifics: Flutter
+
+### Android Specifics: Flutter Resources
+
+# Android Intermediate
+
+### Common App Architectures: MVVM
+
+* ViewModel: While you're rotating the screen orientation or perform any changes in configruation, data may be lost (i.e. while filling up a google form activity & changing the rotation on device)
+* ViewModel prevents memory leak, by hodling the data of UI.
+* While fetching data from some API, some data can come after the initilization of the activity & its view.
+* LiveData, an observer class, detects & changes the data in the UI if there's any change. LiveData is a data wrapper class, which is observable within a Lifecycle of Activity, Fragment, meaning that the observers are going to be notified only when the Activity or Fragment it’s active.
+* When data is ready on the VM side, it’s time to wrap it in LiveData object using MutableLiveData
+* Unlike the Presenter, VM is automatically retained on configuration changes with the help of ViewModelProviders, and finished only when Activity finishes or Fragment gets detached without saving state.
+* If A is a LiveData instance and B is observing it, anytime A’s data changes, B is notified about this change and gets the latest value of A’s data.
+* **Lifecycle awareness** : This means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE
+* There is no reference to the View from a ViewModel so the communication between them must happen via a subscription. Hence, ViewModels expose events like openTaskEvent and views subscribe to them. 
+
+* Process:
+
+1.  Import androidx lifecycle components & initialize the viewmodel in an Activity:
+	``` 
+	import androidx.lifecycle.ViewModelProvider
+	////
+	lateinit var paymentViewModel : PaymentViewModel
 	```
-	class SplashActivity : AppCompatActivity() {
-
-		override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-
-	    }
-	}
+1.  Put viewmodel provider (which will get the viewmodel class) & observer (which will observe a MutableLiveData of viewmodel) inside the onCreate() of
 	```
-* Intent
-
-	```
-	val intent = Intent(this, MainActivity::class.java)
-	startActivity(intent)
-	finish()
+	paymentViewModel = ViewModelProviders.of(this, viewModelFactory).get(PaymentViewModel::class.java)
+        paymentViewModel.paymentUrl.observe(this, Observer { paymentUrl ->
+            loadBkashPaymentDialog(paymentUrl)
+        })
 	```
 
-* SharedPref
-
-[Check out my gist on custom sharedpref in both java & kotlin](https://gist.github.com/SaadAAkash/30e2b317f1cbd65ea4f6f99ca013617c)
-
+### Common App Architectures: MVI
 
 # Android Advanced
 
@@ -309,7 +375,7 @@
 * Interface VS Abstract: Interface can have only abstract methods. Abstract class can have both abstract and non-abstract methods.  Variables declared in a Java interface are by default final. Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
 * There's no need for access control modifiers: private & protected in OOP. How can we access any varialble, bypassing these access control modifiers in java? - Reflection
 
-# Interview Learning Guides
+# Resources & Learning Guides
 
 * [Read this before you start solving problems on Leetcode (Prep Work)](https://www.alimirio.com/posts/read-this-before-you-start-solving-problems-on-leetcode-prep-work)
 * [Best Practice Questions on Leetcode](https://yangshun.github.io/tech-interview-handbook/best-practice-questions)
