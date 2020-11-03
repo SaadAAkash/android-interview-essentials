@@ -17,7 +17,7 @@
 
 | 1 | 2 | 3 | 4 | 5 | 6 |
 | -------- | --------- | --------- | --------- | --------- | --------- |
-| [Android Basics](README.md#android-basics) | [Android Specifics: Native](#android-specifics-native) | [Android Specifics: Cross-Platform](#android-specifics-cross-platform) | [Android Intermediate](#android-intermediate) | [Android Advanced](#android-advanced) | [Resources & Learning Guides](#interview-learning-guides) |
+| [Android Basics](README.md#android-basics) | [Android Specifics: Native](#android-specifics-native) | [Android Specifics: Cross-Platform](#android-specifics-cross-platform) | [Android Intermediate](#android-intermediate) | [Android Advanced](#android-advanced) | [Resources & Learning Guides](#resources-and-learning-guides) |
 
 # Android Basics
 
@@ -564,18 +564,20 @@ When apps are running simultaneously in a multi-windowed environment, supported 
 <summary><strong>What's the highest amount of data that you can keep as a savedInstanceState?</strong></summary>
 For the specific case of savedInstanceState, the amount of data should be kept small because the system process needs to hold on to the provided data for as long as the user can ever navigate back to that activity (even if the activity's process is killed). Less than 50k of data in saved state is recommended. [Ref](https://developer.android.com/guide/components/activities/parcelables-and-bundles#sdbp)
 </details>
-# Resources & Learning Guides
 
-### Android Resources
 
-#### UI
+# Resources and Learning Guides
+
+## Android Resources 
+
+#### UI Components
 * [Anatomy of RecyclerView: a Search for a ViewHolder](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-404ba3453714)
 * [Anatomy of RecyclerView: a Search for a ViewHolder (continued)](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-continued-d81c631a2b91#.dcsykhoh9)
 
-#### Best Practices/Demo
+#### Best Practices
 * [Sunflower: A gardening app illustrating Android development best practices with Android Jetpack.](https://github.com/android/sunflower)
 
-### LeetCode Resources
+## LeetCode Resources
 * [Read this before you start solving problems on Leetcode (Prep Work)](https://www.alimirio.com/posts/read-this-before-you-start-solving-problems-on-leetcode-prep-work)
 * [Best Practice Questions on Leetcode](https://yangshun.github.io/tech-interview-handbook/best-practice-questions)
 * [LeetCode Solution Explainer Videos by Nick White](https://www.youtube.com/playlist?list=PLU_sdQYzUj2keVENTP0a5rdykRSgg9Wp-)
