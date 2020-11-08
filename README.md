@@ -387,11 +387,6 @@ StringBuffer and StringBuilder are similar, but StringBuilder is faster and pref
 There are two types of polymorphism in Java: compile-time polymorphism and runtime polymorphism. We can perform polymorphism in java by method overloading and method overriding. If you overload a static method in Java, it is the example of compile time polymorphism. 
 </details>
 
-<details>
-<summary><strong>How does Thread communicate?</strong></summary>
-Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
-</details>
-
 # Android Specifics: Cross-Platform
 
 ### Android Specifics: Dart
@@ -406,9 +401,11 @@ Threads communicate in 3 ways: ```wait()```, ```notify()```, ```notifyAll()```
 
 <details>
 <summary><strong>We know that when one activity starts another, they both experience lifecycle transitions. Briefly explain the order of operations that occur when Activity A starts Activity B.</strong></summary>
-* Activity A's onPause() method executes.
-* Activity B's onCreate(), onStart(), and onResume() methods execute in sequence. (Activity B now has user focus.)
-* Then, if Activity A is no longer visible on screen, its onStop() method executes.
+	
+* Activity A's `onPause()` method executes.
+* Activity B's `onCreate()`, `onStart()`, and `onResume()` methods execute in sequence. (Activity B now has user focus.)
+* Then, if Activity A is no longer visible on screen, its `onStop()` method executes.
+
 </details>
 
 <details>
@@ -419,49 +416,62 @@ Android manages tasks and the back stack, by placing all activities started in s
 <details>
 <summary><strong>What are the 3 principal intent flags for managing tasks in Activity Back Stack?</strong></summary>
 
-* FLAG_ACTIVITY_NEW_TASK
-* FLAG_ACTIVITY_CLEAR_TOP
-* FLAG_ACTIVITY_SINGLE_TOP
+* `FLAG_ACTIVITY_NEW_TASK`
+* `FLAG_ACTIVITY_CLEAR_TOP`
+* `FLAG_ACTIVITY_SINGLE_TOP`
 	
 [More explanation](https://developer.android.com/guide/components/activities/tasks-and-back-stack#IntentFlagsForTasks)
 </details>
 
 <details>
 <summary><strong>On Android 10 or higher, how can an app start activities?</strong></summary>
+	
 By displaying notifications. But there are some exceptions and apps running on Android 10 or higher can start activities only when [one or more of these conditions](https://developer.android.com/guide/components/activities/background-starts#exceptions) are met.
+
 
 </details>
 
 <details>
 <summary><strong>How to retrieve NavController in Java and Kotlin?</strong></summary>
+
 You can retrieve a NavController by using one of the following methods:
 
+
 * Kotlin:
-```
+
+```kotlin
 Fragment.findNavController()
 View.findNavController()
 Activity.findNavController(viewId: Int)
 ```
+
 * Java:
-```
+
+```java
 NavHostFragment.findNavController(Fragment)
 Navigation.findNavController(Activity, @IdRes int viewId)
 Navigation.findNavController(View)
 ```
+
 </details>
 
 <details>
 <summary><strong>What are the major components of Room?</strong></summary>
+
 3 major components in Room:
+
 * Database
 * Entity
 * DAO
+
 </details>
 
 <details>
 <summary><strong>What's Scoped Storage in Android 10?</strong></summary>
+	
 Apps that use scoped storage have access only to their app directory on external storage plus any media the app created.
 More details on this [article](https://www.raywenderlich.com/9577211-scoped-storage-in-android-10-getting-started).
+
 </details>
 
 <details>
@@ -471,13 +481,13 @@ Jetpack  DataStore
 
 <details>
 <summary><strong>When to use MutableLiveData & when to use LiveData? Explain a scenario.</strong></summary>
-when you don't want your data to be modified use LiveData If you want to modify your data later use MutableLiveData. 
+When you don't want your data to be modified use LiveData If you want to modify your data later use MutableLiveData. 
 A scenario of fetching data from an API needs a MutableLiveData where there are changes in data. This fetched data then can be stored in a LiveData if there's no requirement to change it afterwards & just use cases of using it for the view purposes.
 </details>
 
 <details>
 <summary><strong>When do we need a Parcelables and when a Bundle? Explain a scenario.</strong></summary>
-when you don't want your data to be modified use LiveData If you want to modify your data later use MutableLiveData. 
+When you don't want your data to be modified use LiveData If you want to modify your data later use MutableLiveData. 
 A scenario of fetching data from an API needs a MutableLiveData where there are changes in data. This fetched data then can be stored in a LiveData if there's no requirement to change it afterwards & just use cases of using it for the view purposes.
 </details>
 
@@ -507,25 +517,31 @@ If you detect an error during onCreate() and call finish()
 </details>
 
 <details>
-<summary><strong>When a LayoutManager asks a RecyclerView to provide a View at position X”, explian briefly the internal processes that take place.</strong></summary>
+<summary><strong>When a LayoutManager asks a RecyclerView to provide a View at position X”, explain briefly the internal processes that take place.</strong></summary>
+	
 * Searches changed scrap
 * Searches attached scrap
 * Searches non-removed hidden views
 * Searches the view cache
-* If Adapter has stable ids, searches attached scrap and view cache again for given id.
+* If Adapter has stable ids, searches attached scrap and view cache again for given id
 * Searches the ViewCacheExtension
 * Searches the RecycledViewPool
-* If it fails to find a suitable View in all of the aforementioned places, it creates one by calling adapter’s onCreateViewHolder() method. It then binds the View via onBindViewHolder() if necessary, and finally returns it
+* If it fails to find a suitable View in all of the aforementioned places, it creates one by calling adapter’s `onCreateViewHolder()` method. It then binds the View via `onBindViewHolder()` if necessary, and finally returns it
+
 </details>
 
 <details>
 <summary><strong>Give me a scenario when onCreateViewHolder() & onBindViewHolder() needs to get called in a RecylerView?</strong></summary>
-If a ViewHolder can not be found in Scrap, or Pool, or View Cache, RecyclerView calls its adapter's onCreateViewHolder() and then binds the created view by calling onCreateViewHolder() method.
+	
+If a ViewHolder can not be found in Scrap, or Pool, or View Cache, RecyclerView calls its adapter's onCreateViewHolder() and then binds the created view by calling `onCreateViewHolder()` method.
+
 </details>
 
 <details>
 <summary><strong>Give me a scenario when onCreateViewHolder() & onBindViewHolder() does not get called in a RecylerView? </strong></summary>
+
 When a ViewHolder is in the view cache, we hope to to reuse it “as-is”, without rebinding, at the same position as the one it was at before it got into the cache.
+
 </details>
 
 <details>
@@ -535,27 +551,37 @@ If a ViewHolder was found in pool, it is bound.
 
 <details>
 <summary><strong>Suppose you have a News App that shows an Image with a text for each news article preview. It has 2 types of views implemented with RecyclerView. One view is a grid gallery of article previews & the other is a down-scroll feed of article previews. In which view may we need to extend RecyclerView's cache capacity?</strong></summary>
+	
 With the given scenario, it's assumable that users would not scroll up/go back to previously read articles too often. So we may need to extend the capacity of the cache in the latter as the grid needs to be updated more frequently.
+
 </details>
 
 <details>
 <summary><strong>What method of a RecylerView do we need to call to detect if a certain View is present/visible on the device screen? </strong></summary>
-onViewAttachedToWindow() and onViewDetachedFromWindow() callbacks of the RecyclerView's Adapter
+
+`onViewAttachedToWindow()` and `onViewDetachedFromWindow()` callbacks of the RecyclerView's Adapter
+
 </details>
 
 <details>
 <summary><strong>What's the difference between the activity lifecycle in a multi-windowed environment where multiple applications are running simultaneously in separate windows?</strong></summary>
+
 There's no difference becaused multi-window mode does not change the activity lifecycle.
+
 </details>
 
 <details>
 <summary><strong>Given a scenario of multiple apps running simultaneously in a multi-windowed environment, how to detect which of those application is on top of the other in the back stack of tasks?</strong></summary>
+
 When apps are running simultaneously in a multi-windowed environment, supported in Android 7.0 (API level 24) and higher, the system manages tasks separately for each window; each window may have multiple tasks. Since it's managed by the System as a per-window basis, 2 applications in 2 windows are not in the same back stack of tasks in any way.
+
 </details>
 
 <details>
 <summary><strong>What's the highest amount of data that you can keep as a savedInstanceState?</strong></summary>
-For the specific case of savedInstanceState, the amount of data should be kept small because the system process needs to hold on to the provided data for as long as the user can ever navigate back to that activity (even if the activity's process is killed). Less than 50k of data in saved state is recommended. [Ref](https://developer.android.com/guide/components/activities/parcelables-and-bundles#sdbp)
+
+For the specific case of `savedInstanceState`, the amount of data should be kept small because the system process needs to hold on to the provided data for as long as the user can ever navigate back to that activity (even if the activity's process is killed). Less than 50k of data in saved state is recommended. [Ref](https://developer.android.com/guide/components/activities/parcelables-and-bundles#sdbp)
+
 </details>
 
 
@@ -563,11 +589,12 @@ For the specific case of savedInstanceState, the amount of data should be kept s
 
 ## Android Resources 
 
-### Language Basics
+### Language/Framework Basics
 
 * [Main Reference Guide](https://kotlinlang.org/docs/reference/)
 * [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
 * [Kotlin Tutorial Series Playlist by Navir Reddy](https://www.youtube.com/playlist?list=PLsyeobzWxl7rooJFZhc3qPLwVROovGCfh)
+* [Flutter Interview Questions and Answers - raywenderlich](https://www.raywenderlich.com/10971345-flutter-interview-questions-and-answers)
 
 #### UI Components
 
