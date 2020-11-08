@@ -23,6 +23,7 @@
 
 <details>
 <summary><strong>What are the core 4 app components? What elements/tags do we use to declare them in the Manifest file?</strong></summary>
+
 There are four different types of app components:
 
 * Activities
@@ -142,215 +143,217 @@ onAttached()
 
 ### Android Specifics: Kotlin
 
-* [Main Reference Guide](https://kotlinlang.org/docs/reference/)
-* [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
-* [Kotlin Tutorial Series Playlist by Navir Reddy](https://www.youtube.com/playlist?list=PLsyeobzWxl7rooJFZhc3qPLwVROovGCfh)
-* Declare a variable as nullable string (var_name?):
+<details>
+<summary><strong>How many visibility modifiers are there in kotlin? Explain their scope</strong></summary>  
 
-  ```
-	var a: String = "abc"
-	a = null // compilation error
-	var b: String? = "abc"
-	b = null // no error
-	print(b)
-  ```
+There are 4 visibility modifiers in Kotlin:
+
+* Public: Visible everywhere
+* Protected: Not available for top-level declarations
+* Internal: Visible everywhere in the same module (a module is a set of Kotlin files compiled together: IntelliJ IDEA, Gradle source set etc)
+* Private: Only visible inside the file containing the declaration
+
+```kotlin
+class EventViewModel internal constructor()
+```
+
+In the previous code snippet, internal makes class available to public, but constructor only to inside module
+
+</details>
+
+<details>
+<summary><strong>What are Companion Objects?</strong></summary>  
+
+If you need a function or a property to be tied to a class rather than to instances of it, you can declare it inside a companion object. If you declare a companion object inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier. It is similar to `static` keyword in Java or `@staticmethod` in Python.
+
+```kotlin
+companion object {
+@Volatile private var instance: EventRepository? = null
+
+fun getInstance(eventDao:EventDao) =
+  instance ?: synchronized(this) {
+      instance ?: EventRepository(eventDao).also { instance = it }
+  }
+}
+```
+   
+</details>
+
+<details>
+<summary><strong>Give the output of the following code with nullable variables</strong></summary>
+
+```kotlin
+var a: String = "abc"
+a = null 
+var b: String? = "abc"
+b = null 
+print(b)
+```
+
+* `a =null` will produce a compilation error
+* `b = null` will not produce any error
+
+</details>
+
+<details>
+<summary><strong>What's a Safe call operator?</strong></summary>
+
+```kotlin
+val a = "Kotlin"
+val b: String? = null
+println(b?.length) //prints null
+println(a?.length) //prints 6
+```
+
+</details>
  
-* Safe call operator (?.)
+<details>
+<summary><strong>Explain !! VS ? in the following cases</strong></summary>  
 
-  ```
-	val a = "Kotlin"
-	val b: String? = null
-	println(b?.length)
-	println(a?.length)
+A quick Overview of some possible cases:
 
-	output:
-	null
-	6 
-   ```
-* !! vs ? 
-
-   ```
-        +------------+--------------------+---------------------+----------------------+
-        | a: String? |           a.length |           a?.length |           a!!.length |
-        +------------+--------------------+---------------------+----------------------+
-        |      "cat" | Compile time error |                   3 |                    3 |
-        |       null | Compile time error |                null | NullPointerException |
-        +------------+--------------------+---------------------+----------------------+
-   ```
+```
++------------+--------------------+---------------------+----------------------+
+| a: String? |           a.length |           a?.length |           a!!.length |
++------------+--------------------+---------------------+----------------------+
+|      "cat" | Compile time error |                   3 |                    3 |
+|       null | Compile time error |                null | NullPointerException |
++------------+--------------------+---------------------+----------------------+
+```
    
-   !! is an option for NPE-lovers. ```a!!.length``` will return a non-null value of a.length or throw a NullPointerException if a is null. And ```a?.length``` returns a.length if a is not null, and null otherwise:
+!! is an option for NPE-lovers. ```a!!.length``` will return a non-null value of a.length or throw a NullPointerException if a is null. And ```a?.length``` returns a.length if a is not null, and null otherwise:
 
-   ```
-   val a: String? = null
-   print(a!!.length) // >>> NPE: trying to get length of null
-   ```
+```kotlin
+val a: String? = null
+print(a!!.length) // >>> NPE: trying to get length of null
+```
 
-   ```
-   val a: String? = null
-   print(a?.length) // >>> null is printed in the console
-   ```
+```kotlin
+val a: String? = null
+print(a?.length) // >>> null is printed in the console
+```
+
+</details>
    
-* Ternary Operator: **Unlike Java, there is no ternary operator in kotlin. Use if-else instead**
+<details>
+<summary><strong>What's the ternary operator (condition ? expression1 : expression2;) of Java alternative in Kotlin?</strong></summary>  
+Unlike Java, there is no ternary operator in kotlin. You need to use if-else instead.
+</details>
 
-* Bitwise Operator:
+<details>
+<summary><strong>What's an Elvis Operator? Why is it a Smarter Type-Safe If</strong></summary>  
 
-   ```
-   val andResult  = a and b
-   val orResult   = a or b
-   val xorResult  = a xor b
-   val rightShift = a shr 2
-   val leftShift  = a shl 2
-   ```
+```
+val list = mutableList ?: mutableListOf() 
+```
+is a shorter form of
+```
+val list = if (mutableList != null) mutableList else mutableListOf()
+```
 
-* Elvis Operator: The Smarter Type-Safe If
+The name,howver, comes from the famous American singer Elvis Presley. His hairstyle resembles a Question Mark [Ref](https://stackoverflow.com/questions/48253107/what-does-do-in-kotlin/48304523#48304523)
 
-   ```
-   val list = mutableList ?: mutableListOf() 
-   ```
-	is a shorter form of
-   ```
-   val list = if (mutableList != null) mutableList else mutableListOf()
-   ```
-   
-   The name,howver, comes from the famous American singer Elvis Presley. His hairstyle resembles a Question Mark [Ref](https://stackoverflow.com/questions/48253107/what-does-do-in-kotlin/48304523#48304523)
-   
-   ![alt text](https://i.stack.imgur.com/bVG64.png "Elvis Operator")
+![alt text](https://i.stack.imgur.com/bVG64.png "Elvis Operator")
 
-* when, if
-   ```
-	return if (x) foo() else bar()
-	return when(x) {
-	    0 -> "zero"
-	    else -> "nonzero"
-	}
-    ```
-    
-     The above is preferable to:
-     ```
-	if (x)
-	    return foo()
-	else
-	    return bar()
+</details>
 
-	when(x) {
-	    0 -> return "zero"
-	    else -> return "nonzero"
-	}
-     ```
-     
-* Functions
+<details>
+<summary><strong>Given the 2 code snippets, choose which one is more preferred.</strong></summary>  
 
-  ```
-	fun double(x: Int): Int {
-	    return 2 * x
-	} 
-	//SYNTAX: 
-	fun funName( param : paramType ) : returnType
-	{
+1st Code Snippet:
 
-	}
-   ```
+```kotlin
+return if (x) foo() else bar()
+return when(x) {
+    0 -> "zero"
+    else -> "nonzero"
+}
+```
 
-* Visibility Modifiers (public, protected, internal, private): public is used by default, means it will be visible everywhere.	If a declaration's private, it will only be visible inside the file containing the declaration.	If it's internal, it is visible everywhere in the same **module** (a module is a set of Kotlin files compiled together: IntelliJ IDEA, Gradle source set etc) and if protected, it's not available for top-level declarations.
+2nd Code Snippet:
 
-  ```
-	 class EventViewModel internal constructor(
-	)
-	//internal makes class available to public, but constructor only to inside module
-  ```
+```kotlin
+if (x)
+    return foo()
+else
+    return bar()
 
-* Always declare local variables and properties as ```val``` rather than ```var``` if they are not modified (not variable) after initialization
-* Prefer using immutable (whose state cannot be modified after it is created) data to mutable.
-* Out Initialization code can be placed in initializer blocks, which are prefixed with the ```init``` keyword:
+when(x) {
+    0 -> return "zero"
+    else -> return "nonzero"
+}
+```
 
-  ```
-  class InitOrderDemo(name: String) {
-	    val firstProperty = "First property: $name".also(::println)  //inits a val & also, prints the name
-	    
-	    init {
-	        println("First initializer block that prints ${name}")
-	        println("Second initializer block that prints ${name.length}")
-	    }
-	}
-  ```
-  
-* Calling High Order Functions
-  ``` 
-	fun main() {
-	//both of the ways are correct!
-	    test( { println(it) } ) 
-	    test(::println)
-	}
+The above is preferable to the latter one.
 
-	fun test(block: (String) -> Unit ) {
-	    block("okay")
-	}
-  ```
-* A sample input-output problem solving in kotlin example
+</details>
 
-  ```
-  fun solve (clawPos: Int, boxes: Array<Int>, boxInClaw: Boolean): String {
-  	return "okay"
-  }
-  fun main(args : Array<String>) {
-    val input = Scanner(System.`in`)
-    while (true) {
-        val clawPos = input.nextInt()  //4
-        val boxInClaw = input.nextInt() != 0 //0
-        val stacks = input.nextInt()  //5
-        val boxes = Array(stacks) { input.nextInt() } //1 4 1 2 3
-        val outStream = System.out
-        System.setOut(System.err)
-        val action: String = solve(clawPos, boxes, boxInClaw)
-        System.setOut(outStream)
-        println(action)
+<details>
+<summary><strong>What does the keyword/block init do?</strong></summary>  
+
+Out Initialization code can be placed in initializer blocks, which are prefixed with the ```init``` keyword:
+
+```kotlin
+class InitOrderDemo(name: String) {
+    val firstProperty = "First property: $name".also(::println)  //inits a val & also, prints the name
+
+    init {
+	println("First initializer block that prints ${name}")
+	println("Second initializer block that prints ${name.length}")
     }
-  }
-  ```
-* @Volatile before a field means that writes to this field are immediately made visible to other threads.
-* Suppress Warnings: In Kotlin, there's no way to check the generic parameters at runtime in general case (like just checking the items of a ```List<T>``` or here in this ViewModelFactory, ```modelClass: Class<T>``` which is only a special case), so casting a generic type to another with different generic parameters will raise a warning, which needs to be suppressed
+}
+```
+</details>
 
-  ```
-  @Suppress("UNCHECKED_CAST")
-	 override fun <T : ViewModel?> create(modelClass: Class<T>) = EventViewModel(eventRepository, lifecycleOwner) as T
-  ```
-* Companion Objects: if you declare a companion object inside your class, you'll be able to call its members with the same syntax as calling static methods in Java/C#, using only the class name as a qualifier.
+<details>
+<summary><strong>How to call a High Order Functions in Kotlin?</strong></summary>  
 
-  ```
-  companion object {
-      @Volatile private var instance: EventRepository? = null
+```kotlin
+fun main() {
+//both of the ways are correct!
+    test( { println(it) } ) 
+    test(::println)
+}
 
-      fun getInstance(eventDao:EventDao) =
-          instance ?: synchronized(this) {
-              instance ?: EventRepository(eventDao).also { instance = it }
-          }
-   }
-   ```
+fun test(block: (String) -> Unit ) {
+    block("okay")
+}
+```
 
-* Let’s say that we have nullable nameTextView. The following code will give us NPE if it is null:
-	```
-	nameTextView.setEnabled(true)
-	```
-  But Kotlin, actually, is good and it will not allow us to even do such a thing. It will force us to use ? or !! operator. If we use ? operator:
-	```
-	nameTextView?.setEnabled(true)
-	```
-  the line will be proceeded only if nameTextView is not a null. In another case, if we use !! operator:
-	```
-	nameTextView!!.setEnabled(true)
-	```
-  it will give us NPE if nameTextView is a null. It's just for adventurers!!!!
+</details>
+
+<details>
+<summary><strong>What does @Volatile mean?</strong></summary>  
+
+@Volatile before a field means that writes to this field are immediately made visible to other threads.
+
+</details>
+
+
+<details>
+<summary><strong>Why do we need to use @Suppress("UNCHECKED_CAST")?</strong></summary>  
+
+In Kotlin, there's no way to check the generic parameters at runtime in general case (like just checking the items of a ```List<T>``` or here in this ViewModelFactory, ```modelClass: Class<T>``` which is only a special case), so casting a generic type to another with different generic parameters will raise a warning, which needs to be suppressed
+
+```kotlin
+@Suppress("UNCHECKED_CAST")
+override fun <T : ViewModel?> create(modelClass: Class<T>) = EventViewModel(eventRepository, lifecycleOwner) as T
+```
   
-* Use Let:
-	```
-	sheetBehavior = BottomSheetBehavior.from(layoutMapBottomSheet!!)
-	```
-	Use let & use the it rather than the using !! & waiting to get an NPE
-	```
-	layoutMapBottomSheet?.let {
-            sheetBehavior = BottomSheetBehavior.from(it)  //here, "it" is "layoutMapBottomSheet"
-        }
-	```
+</details>
+
+<details>
+<summary><strong>How to use Bitwise Operator in Kotlin?</strong></summary>  
+
+```kotlin
+val andResult  = a and b
+val orResult   = a or b
+val xorResult  = a xor b
+val rightShift = a shr 2
+val leftShift  = a shl 2
+```
+
+</details>
 
 ### Android Specifics: Java
 
@@ -570,14 +573,23 @@ For the specific case of savedInstanceState, the amount of data should be kept s
 
 ## Android Resources 
 
+### Language Basics
+
+* [Main Reference Guide](https://kotlinlang.org/docs/reference/)
+* [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
+* [Kotlin Tutorial Series Playlist by Navir Reddy](https://www.youtube.com/playlist?list=PLsyeobzWxl7rooJFZhc3qPLwVROovGCfh)
+
 #### UI Components
+
 * [Anatomy of RecyclerView: a Search for a ViewHolder](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-404ba3453714)
 * [Anatomy of RecyclerView: a Search for a ViewHolder (continued)](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-continued-d81c631a2b91#.dcsykhoh9)
 
 #### Best Practices
+
 * [Sunflower: A gardening app illustrating Android development best practices with Android Jetpack.](https://github.com/android/sunflower)
 
-## LeetCode Resources
+#### LeetCode Resources
+
 * [Read this before you start solving problems on Leetcode (Prep Work)](https://www.alimirio.com/posts/read-this-before-you-start-solving-problems-on-leetcode-prep-work)
 * [Best Practice Questions on Leetcode](https://yangshun.github.io/tech-interview-handbook/best-practice-questions)
 * [LeetCode Solution Explainer Videos by Nick White](https://www.youtube.com/playlist?list=PLU_sdQYzUj2keVENTP0a5rdykRSgg9Wp-)
