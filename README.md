@@ -389,11 +389,73 @@ There are two types of polymorphism in Java: compile-time polymorphism and runti
 
 # Android Specifics: Cross-Platform
 
-### Android Specifics: Dart
-
 ### Android Specifics: Flutter
 
-### Android Specifics: Flutter Resources
+<details>
+<summary><strong>What is the difference between StatelessWidget and StatefulWidget?</strong></summary>
+	
+If a widget can change when a user interacts with it, it’s stateful. If it can't, it's stateless.
+
+* StatelessWidget is an immutable class that acts as a blueprint for some part of the UI layout. You use it when the widget doesn’t change while displaying and, therefore, has no State
+* StatefulWidget is also immutable, but it’s coupled with a State object that allows you to rebuild the widget with new values whenever calling setState(). Use StatefulWidget whenever the UI can change dynamically
+
+</details>
+
+<details>
+<summary><strong>Give some frequently used Stateless and Stateful widgets</strong></summary>
+	
+* Stateless: `Icon`, `IconButton`, and `Text`
+* Stateful: `Checkbox`, `Radio`, `Slider`, `InkWell`, `Form`, and `TextField`
+
+</details>
+
+<details>
+<summary><strong>Explain the difference between hot reload and hot restart briefly</strong></summary>
+	
+* Hot reload maintains the app state while updating the UI almost instantaneously
+* Hot restart resets the app state to its initial conditions before updating the UI
+
+Hot Restart takes a bit longer than Hot Reload, in comparison
+
+</details>
+
+<details>
+<summary><strong>What is BuildContext and how is it useful?</strong></summary>
+	
+`BuildContext` is the widget's element in the Element tree. Every widget has its own BuildContext. It's used to get a reference to the theme or to another widget.
+
+</details>
+
+<details>
+<summary><strong>How to decrease/optimize the iterations of rebuilding stateful widgets?</strong></summary>
+	
+* Creating dedicated smaller widgets that updates states instead of handling states on larger widgets
+* Factoring out only the stateful part of a widget and passing a child argument to it
+* Using `const` widgets to cache and reuse
+* Avoiding frequent changes of the depth of the subtree since it requires rebuilding
+
+More technique on [official doc on Perfomance Considerations on Flutter](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html#performance-considerations)
+
+</details>
+
+
+<details>
+<summary><strong>Name some of the steps of StatefulWidget lifecycle.</strong></summary>
+	
+* createState()
+* mounted == true
+* initState()
+* didChangeDependencies()
+* build()
+* didUpdateWidget()
+* setState()
+* deactivate()
+* dispose()
+* mounted == false
+
+More in-depth analysis of every step on the following [aticle](https://flutterbyexample.com/lesson/stateful-widget-lifecycle)
+
+</details>
 
 # Android Intermediate
 
