@@ -481,33 +481,23 @@ when you don't want your data to be modified use LiveData If you want to modify 
 A scenario of fetching data from an API needs a MutableLiveData where there are changes in data. This fetched data then can be stored in a LiveData if there's no requirement to change it afterwards & just use cases of using it for the view purposes.
 </details>
 
-### Common App Architectures: MVVM
+### Common App Architectures
 
-* ViewModel: While you're rotating the screen orientation or perform any changes in configruation, data may be lost (i.e. while filling up a google form activity & changing the rotation on device)
-* ViewModel prevents memory leak, by hodling the data of UI.
-* While fetching data from some API, some data can come after the initilization of the activity & its view.
-* LiveData, an observer class, detects & changes the data in the UI if there's any change. LiveData is a data wrapper class, which is observable within a Lifecycle of Activity, Fragment, meaning that the observers are going to be notified only when the Activity or Fragment it’s active.
-* When data is ready on the VM side, it’s time to wrap it in LiveData object using MutableLiveData
-* Unlike the Presenter, VM is automatically retained on configuration changes with the help of ViewModelProviders, and finished only when Activity finishes or Fragment gets detached without saving state.
-* If A is a LiveData instance and B is observing it, anytime A’s data changes, B is notified about this change and gets the latest value of A’s data.
-* **Lifecycle awareness** : This means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE
-* There is no reference to the View from a ViewModel so the communication between them must happen via a subscription. Hence, ViewModels expose events like openTaskEvent and views subscribe to them. 
+<details>
+<summary><strong>What's the relation between using ViewModel and Memory Leak?</strong></summary>
+While you're rotating the screen orientation or perform any changes in configruation, data may be lost (i.e. while filling up a google form activity & changing the rotation on device). ViewModel prevents memory leak, by hodling the data of UI.
+</details>
 
-* Process:
+<details>
+<summary><strong>What's the use of LiveData? Explain a use case</strong></summary>
+While fetching data from some API, some data can come after the initilization of the activity & its view. LiveData, an observer class, detects & changes the data in the UI if there's any change. LiveData is a data wrapper class, which is observable within a Lifecycle of Activity, Fragment, meaning that the observers are going to be notified only when the Activity or Fragment it’s active. If A is a LiveData instance and B is observing it, anytime A’s data changes, B is notified about this change and gets the latest value of A’s data.
+</details>
 
-1.  Import androidx lifecycle components & initialize the viewmodel in an Activity:
-	``` 
-	import androidx.lifecycle.ViewModelProvider
-	////
-	lateinit var paymentViewModel : PaymentViewModel
-	```
-1.  Put viewmodel provider (which will get the viewmodel class) & observer (which will observe a MutableLiveData of viewmodel) inside the onCreate() of
-	```
-	paymentViewModel = ViewModelProviders.of(this, viewModelFactory).get(PaymentViewModel::class.java)
-        paymentViewModel.paymentUrl.observe(this, Observer { paymentUrl ->
-            loadBkashPaymentDialog(paymentUrl)
-        })
-	```
+<details>
+<summary><strong>How is MVVM lifecycle aware & decoupled?</strong></summary>
+Lifecycle awareness means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE. 
+There is no reference to the View from a ViewModel so the communication between them must happen via a subscription. Hence, ViewModels expose events like openTaskEvent and views subscribe to them
+</details>
 
 # Android Advanced
 
