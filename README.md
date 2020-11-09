@@ -325,10 +325,9 @@ fun test(block: (String) -> Unit ) {
 <details>
 <summary><strong>What does @Volatile mean?</strong></summary>  
 
-@Volatile before a field means that writes to this field are immediately made visible to other threads.
+`@Volatile` before a field means that writes to this field are immediately made visible to other threads.
 
 </details>
-
 
 <details>
 <summary><strong>Why do we need to use @Suppress("UNCHECKED_CAST")?</strong></summary>  
@@ -363,6 +362,32 @@ final
 </details>
 
 <details>
+<summary><strong>Are static local variables allowed in Java?</strong></summary>
+
+No. In Java, a static variable is a class variable (for whole class). So if we have static local variable (a variable with scope limited to function), it violates the purpose of static. Hence compiler does not allow static local variable. So the following code throws a `Error: Static local variables are not allowed`:
+
+```java
+class Test { 
+   public static void main(String args[]) {  
+     System.out.println(fun()); 
+   } 
+  
+   static int fun() 
+   { 
+     static int x= 10;  //throws an error here
+     return x--; 
+   } 
+}  
+```
+
+</details>
+
+<details>
+<summary><strong>Can we access a non-static variable from a static method in Java?</strong></summary>
+No. The concept of static is not associated with any instance. And non-static variable are associated with a specific instance of an object.
+</details>
+
+<details>
 <summary><strong>How to make a member variable not to be serialized inside a Serialized object?</strong></summary>
 Using Java keyword transient.
 </details>
@@ -371,6 +396,41 @@ Using Java keyword transient.
 <summary><strong>What's the Parent class of Error & Exception?</strong></summary>
 Throwable
 </details>
+
+<details>
+<summary><strong>What is a Generic in Java?</strong></summary>
+Generics is parameterized types (Integer, String, … etc, and user-defined types) to methods, classes, and interfaces. Generics is used to create classes that work with different data types as such:
+	
+```java
+class Test<T> 
+{ 
+    T obj; 
+    Test(T obj) {  this.obj = obj;  } 
+    public T getObject()  { return this.obj; } 
+} 
+
+class Main 
+{ 
+    public static void main (String[] args) 
+    { 
+        Test <Integer> iObj = new Test<Integer>(15); 
+        System.out.println(iObj.getObject()); 
+	
+        Test <String> sObj = new Test<String>("GeeksForGeeks"); 
+        System.out.println(sObj.getObject()); 
+    }
+}
+```
+</details>
+
+<details>
+<summary><strong>What is the difference between == and .equals()?</strong></summary>
+
+* The `equals()` method compares two strings, character by character, to determine equality
+* The `==` operator checks to see whether two object references refer to the same instance of an object
+
+</details>
+
 
 <details>
 <summary><strong>Are String objects mutable? If so, why is that? Explain shortly.</strong></summary>
