@@ -701,6 +701,60 @@ When you don't want your data to be modified use LiveData If you want to modify 
 A scenario of fetching data from an API needs a MutableLiveData where there are changes in data. This fetched data then can be stored in a LiveData if there's no requirement to change it afterwards & just use cases of using it for the view purposes.
 </details>
 
+<details>
+<summary><strong>What are sealed classes in Kotlin? Explain a possible use case in any of the RecylcerView components for Android.</strong></summary>
+
+Sealed classes are used for representing restricted class hierarchies, when a value can have one of the types from a limited set, but cannot have any other type. 
+
+They are, in a sense, an extension of enum classes: the set of values for an enum type is also restricted, but each enum constant exists only as a single instance, whereas a subclass of a sealed class can have multiple instances which can contain state.
+
+A use case can be when to display a list of a specific type of object in a RecyclerView, where each object has its own ViewHolder.
+
+```kotlin
+sealed class Fruit {
+    class Apple : Fruit()
+    class Orange : Fruit()
+}
+
+class FruitAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val fruits = arrayListOf<Fruit>()
+    override fun getItemCount() = fruits.size
+        
+    override fun getItemViewType(position: Int): Int {
+        return when (fruits[position]) {
+            is Fruit.Apple -> R.layout.item_apple
+            is Fruit.Orange -> R.layout.item_orange
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            R.layout.item_apple -> {
+                val itemView = layoutInflater.inflate(R.layout.item_apple, parent, false)
+                AppleViewHolder(itemView)
+            }
+            R.layout.item_orange -> {
+                val itemView = layoutInflater.inflate(R.layout.item_orange, parent, false)
+                OrangeViewHolder(itemView)
+            }
+            else -> throw UnknownViewTypeException("Unknown view type $viewType")
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            val fruit = fruits[position]
+            when (fruit) {
+                is Fruit.Apple -> (holder as AppleViewHolder).bind(fruit)
+                is Fruit.Orange -> (holder as OrangeViewHolder).bind(fruit)
+            }
+    }
+}
+```
+
+</details>
+
+
 ### Common App Architectures
 
 <details>
@@ -718,6 +772,10 @@ While fetching data from some API, some data can come after the initilization of
 Lifecycle awareness means that a LiveData will only update observers (such as Activities, fragments or services) which are in an active lifecycle state and thus, avoiding NPE. 
 There is no reference to the View from a ViewModel so the communication between them must happen via a subscription. Hence, ViewModels expose events like openTaskEvent and views subscribe to them
 </details>
+
+
+
+
 
 # Android Advanced
 
@@ -832,6 +890,31 @@ Types of Observers in RxJava:
 `Flowable` takes backpressure into consideration. `Observable` does not. 
 </details>
 
+<details>
+<summary><strong>What's the difference between Lazy and Lateinit in Kotlin? Explain a use case & a code example where you illustrate what to use when.</strong></summary>
+
+Comparison:
+* `by lazy {...}` delegate can only be used for `val` properties, whereas `lateinit` can only be applied to `var` types
+* `lateinit` var can be initialized from anywhere the object is seen from, wherease `by lazy {...}` can only be initialized from its initializer lambda 
+* `by lazy {...}` is thread safe by default, it guarantees that the initializer is invoked at most once, whereas `lateinit` is not thread safe, the user is responsible for initialize in multi-thread inveronments
+
+Use Cases:
+* If you want your property to be initialized from outside/externally in a way probably unknown beforehand, use `lateinit`.
+* If you want your property restrict to only using dependencies internal to your object, use `by lazy {...}`
+
+Code example:
+A code snippet where `lateinit` is allowed or not:
+
+```
+lateinit var name: String       //Allowed
+lateinit val name: String       //Not Allowed in val
+lateinit var name: String?      //Not Allowed if nullable
+```
+
+Here's a resourceful thread on [Stack Overflow](https://stackoverflow.com/questions/36623177/kotlin-property-initialization-using-by-lazy-vs-lateinit)
+</details>
+
+
 
 
 
@@ -844,6 +927,7 @@ Types of Observers in RxJava:
 * [Main Reference Guide](https://kotlinlang.org/docs/reference/)
 * [From Java to Kotlin](https://github.com/MindorksOpenSource/from-java-to-kotlin)
 * [Kotlin Tutorial Series Playlist by Navir Reddy](https://www.youtube.com/playlist?list=PLsyeobzWxl7rooJFZhc3qPLwVROovGCfh)
+* [Understanding Kotlin Sealed Classes](https://proandroiddev.com/understanding-kotlin-sealed-classes-65c0adad7015)
 * [Flutter Interview Questions and Answers - raywenderlich](https://www.raywenderlich.com/10971345-flutter-interview-questions-and-answers)
 
 #### UI Components
