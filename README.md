@@ -351,15 +351,29 @@ val xorResult  = a xor b
 val rightShift = a shr 2
 val leftShift  = a shl 2
 ```
-
 </details>
+
+
+
+
 
 ### Android Specifics: Java
 
 <details>
 <summary><strong>What's the access modifier of a method that no child class can extend/access/override?</strong></summary>
-final
+	
+`final`
 </details>
+
+
+<details>
+<summary><strong>What's the instantiation and initialization of an object?</strong></summary>
+	
+* Initialization: is the process of the memory allocation, when a new variable is created.
+* Instantiation: is the process of explicitly assigning definitive value to a declared variable.
+   
+</details>
+
 
 <details>
 <summary><strong>Are static local variables allowed in Java?</strong></summary>
@@ -388,8 +402,16 @@ No. The concept of static is not associated with any instance. And non-static va
 </details>
 
 <details>
+<summary><strong>Can a static method be overridden in Java?</strong></summary>
+No. Method overriding is based on dynamic binding at runtime and the static methods are bonded using static binding at compile time.
+We can declare static methods with the same signature in the subclass, but it is not considered overriding as there won't be any run-time polymorphism. 
+</details>
+
+<details>
 <summary><strong>How to make a member variable not to be serialized inside a Serialized object?</strong></summary>
-Using Java keyword transient.
+
+Using Java keyword `transient`. This keyword, when applied to a field, tells the Java object serialization subsystem to exclude the field when serializing an instance of the class
+
 </details>
 
 <details>
@@ -431,7 +453,6 @@ class Main
 
 </details>
 
-
 <details>
 <summary><strong>Are String objects mutable? If so, why is that? Explain shortly.</strong></summary>
 No. String objects are immutable. In the String constant pool, a String object is likely to have one or many references. If several references point to same String without even knowing it, it would be bad if one of the references modified that String value. That's why String objects are immutable.
@@ -439,13 +460,29 @@ No. String objects are immutable. In the String constant pool, a String object i
 
 <details>
 <summary><strong>When to use StringBuffer and when to StringBuilder?</strong></summary>
-StringBuffer and StringBuilder are similar, but StringBuilder is faster and preferred over StringBuffer for single threaded program. If thread safety is needed, then StringBuffer is used.
+	
+StringBuffer and StringBuilder are classes used for String manipulation. These are mutable objects, which provide methods such as `substring()`, `insert()`, `append()`, `delete()` for String manipulation. They are similar, but StringBuilder is faster and preferred over StringBuffer for single threaded program. However, StringBuilder operations are not thread-safe are not-synchronized. So StringBuffer is preferred over StringBuilder when thread safety is required.
+
 </details>
 
 <details>
 <summary><strong>How many types of polymorphism is there in Java?</strong></summary>
-There are two types of polymorphism in Java: compile-time polymorphism and runtime polymorphism. We can perform polymorphism in java by method overloading and method overriding. If you overload a static method in Java, it is the example of compile time polymorphism. 
+	
+There are two types of polymorphism in Java: 
+
+* **Compile-time polymorphism**: Compiler itself determines which method should call. Method overloading is an example of static/compile-time polymorphism. 
+* **Runtime polymorphism**: Compiler cannot determine the method at compile time. Method overriding is an example of dynamic/run-time polymorphism 
+
 </details>
+
+<details>
+<summary><strong>Which class is widely used to implement thread safe counters in Java?</strong></summary>
+	
+[AtomicInteger](https://developer.android.com/reference/java/util/concurrent/atomic/AtomicInteger)
+
+</details>
+
+
 
 # Android Specifics: Cross-Platform
 
@@ -517,6 +554,11 @@ More in-depth analysis of every step on the following [aticle](https://flutterby
 
 </details>
 
+
+
+
+
+
 # Android Intermediate
 
 ### General Concepts
@@ -532,7 +574,8 @@ More in-depth analysis of every step on the following [aticle](https://flutterby
 
 <details>
 <summary><strong>What type of stack does Android use for managing tasks?</strong></summary>
-Android manages tasks and the back stack, by placing all activities started in succession in the same task and in a "last in, first out" stack
+	
+Android manages tasks and the back stack, by placing all activities started in succession in the same task and in a *Last In First Out* (LIFO) stack
 </details>
 
 <details>
@@ -707,6 +750,46 @@ For the specific case of `savedInstanceState`, the amount of data should be kept
 </details>
 
 
+<details>
+<summary><strong>Name some of the types of Observables & Observers in RxJava??</strong></summary>
+
+Types of Observables in RxJava:
+
+* Observable
+* Flowable
+* Single
+* Maybe
+* Completable
+
+Types of Observers in RxJava:
+
+* Observer
+* SingleObserver
+* MaybeObserver
+* CompletableObserver
+
+</details>
+
+<details>
+<summary><strong>What's a Single, Maybe & Completable in RxJava??</strong></summary>
+
+* A Single in RxJava is an Observable which emits only one item if completed or returns error.
+* A Maybe in RxJava is used when the Observable needs to emit a value or a no value or an error.
+* A Completable in RxJava is an Observable which just completes the task and does not emit anything if completed. It returns an error if anything fails. It is similar to reactive concept of runnable.
+
+</details>
+
+<details>
+<summary><strong>What's the difference between Observable & Flowbale? What's Backpressure & how is it related to them?</strong></summary>
+
+**Backpressure** is when your observable (publisher) is creating more events than your subscriber can handle. So you can get subscribers missing events, or you can get a huge queue of events which just leads to out of memory eventually. 
+
+`Flowable` takes backpressure into consideration. `Observable` does not. 
+</details>
+
+
+
+
 # Resources and Learning Guides
 
 ## Android Resources 
@@ -723,9 +806,10 @@ For the specific case of `savedInstanceState`, the amount of data should be kept
 * [Anatomy of RecyclerView: a Search for a ViewHolder](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-404ba3453714)
 * [Anatomy of RecyclerView: a Search for a ViewHolder (continued)](https://android.jlelse.eu/anatomy-of-recyclerview-part-1-a-search-for-a-viewholder-continued-d81c631a2b91#.dcsykhoh9)
 
-#### Best Practices
+#### Best Practices/In-depth
 
 * [Sunflower: A gardening app illustrating Android development best practices with Android Jetpack.](https://github.com/android/sunflower)
+* [Understanding Types Of Observables In RxJava](https://blog.mindorks.com/understanding-types-of-observables-in-rxjava-6c3a2d0819c8)
 
 #### LeetCode Resources
 
