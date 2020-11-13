@@ -212,14 +212,11 @@ println(a?.length) //prints 6
 
 A quick Overview of some possible cases:
 
-```
-+------------+--------------------+---------------------+----------------------+
-| a: String? |           a.length |           a?.length |           a!!.length |
-+------------+--------------------+---------------------+----------------------+
-|      "cat" | Compile time error |                   3 |                    3 |
-|       null | Compile time error |                null | NullPointerException |
-+------------+--------------------+---------------------+----------------------+
-```
+| 1 | 2 | 3 | 4 | 
+| -------- | --------- | --------- | --------- | 
+| a: String? | a.length | a?.length | a!!.length | 
+| "cat" | Compile time error | 3 | 3 |
+| null | Compile time error | null | NullPointerException |
    
 !! is an option for NPE-lovers. ```a!!.length``` will return a non-null value of a.length or throw a NullPointerException if a is null. And ```a?.length``` returns a.length if a is not null, and null otherwise:
 
@@ -354,7 +351,55 @@ val leftShift  = a shl 2
 </details>
 
 
+<details>
+<summary><strong>What's reified keyword in Kotlin?</strong></summary>  
 
+Generic parameters are a great way to provide type safety, but can be limiting when accessing class info type. 
+The `reified` keyword allows get type of generic variable in inline function.
+
+```kotlin
+inline fun <reified T> printType() {
+	print(T::class.java)
+}
+
+fun printStringType() {
+        //calling with String type  
+	printType<String>()
+}
+```
+
+Some rules to follow:
+
+* Reified can be used only with inline functions
+* Reified functions can not be accessed from Java, because Java doesn't support inlining
+
+More on [Reified](https://www.youtube.com/watch?v=Xj45hobMI78) and [Inline functions](https://www.youtube.com/watch?v=wAQCs8-a6mg) on Kotlin Vocabulary
+</details>
+
+<details>
+<summary><strong>What are the differences among flatMap(), map() and flatten() in Kotlin? Explain with code example.</strong></summary>  
+
+* `flatMap()` merges two collections into a single one 
+* `map()` results in a list of lists
+* `flatten()` produces the same result as `flatMap()`. So `flatMap()` is a combination of the two functions: `map()` and then `flatten()`
+
+The following code example with commented output illustrates their use cases:
+
+```kotlin
+class Data(val items : List<String>)
+
+val dataObjects = listOf(
+    Data(listOf("a", "b", "c")), 
+    Data(listOf("1", "2", "3"))
+)
+
+val items: List<String> = dataObjects.flatMap { it.items } //[a, b, c, 1, 2, 3]
+val items2: List<List<String>> = dataObjects.map { it.items } //[[a, b, c], [1, 2, 3]] 
+
+val nestedCollections: List<Int> = listOf(listOf(1,2,3), listOf(5,4,3)).flatten() //[1, 2, 3, 5, 4, 3]
+```
+
+</details>
 
 
 ### Android Specifics: Java
