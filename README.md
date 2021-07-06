@@ -697,8 +697,8 @@ A scenario of fetching data from an API needs a MutableLiveData where there are 
 
 <details>
 <summary><strong>When do we need a Parcelables and when a Bundle? Explain a scenario.</strong></summary>
-When you don't want your data to be modified use LiveData If you want to modify your data later use MutableLiveData. 
-A scenario of fetching data from an API needs a MutableLiveData where there are changes in data. This fetched data then can be stored in a LiveData if there's no requirement to change it afterwards & just use cases of using it for the view purposes.
+Parcelables and Bundles are usually used to transfer data between activities. To transfer primitive data types we use Bundle and for complex object types we use Parcelable. 
+In a scenario of sending a String from one activity to another a Bundle object can be used. But in case of sending an ArrayList, Bundle can not be used. In this case we need to use Parcelable.   
 </details>
 
 <details>
